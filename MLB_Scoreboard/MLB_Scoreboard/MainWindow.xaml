@@ -1,0 +1,92 @@
+﻿<Window x:Class="MLB_Scoreboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MLB_Scoreboard"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="400" Closing="Window_Closing">
+    <Grid>
+
+        <DockPanel>
+            <Grid Width="auto" DockPanel.Dock="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ComboBox x:Name="year_cbo" SelectionChanged="year_cbo_SelectionChanged"/>
+                <Calendar x:Name="dateSelect" Grid.Row="1" SelectedDatesChanged="dateSelect_SelectedDatesChanged"/>
+                <ListBox x:Name="datesDisplay" Grid.Row="2" ItemsSource="{Binding}"/>
+                <ListBox x:Name="gamesDisplay" Grid.Row="3" ItemsSource="{Binding ElementName=datesDisplay,Path=SelectedItem.data.games.game}"/>
+            </Grid>
+            <Grid HorizontalAlignment="Center" DockPanel.Dock="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Home"/>
+                    <Label Grid.Row="1" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.home_team_name}"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="R:"/>
+                        <Label Grid.Column="1" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.linescore.r.home}"/>
+                        <Label Grid.Column="2" Content="H:"/>
+                        <Label Grid.Column="3" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.linescore.h.home}"/>
+                        <Label Grid.Column="4" Content="E:"/>
+                        <Label Grid.Column="5" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.linescore.e.home}"/>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Away"/>
+                    <Label Grid.Row="1" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.away_team_name}"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="R:"/>
+                        <Label Grid.Column="1" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.linescore.r.away}"/>
+                        <Label Grid.Column="2" Content="H:"/>
+                        <Label Grid.Column="3" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.linescore.h.away}"/>
+                        <Label Grid.Column="4" Content="E:"/>
+                        <Label Grid.Column="5" Content="{Binding ElementName=gamesDisplay,Path=SelectedItem.linescore.e.away}"/>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </DockPanel>
+        
+    </Grid>
+</Window>
